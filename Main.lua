@@ -11,7 +11,7 @@ function setup()
     -- Create a wall around the screen
     table.insert(scenery,
         physics.body(CHAIN, true,
-            vec2(0,HEIGHT), vec2(0,0), vec2(WIDTH, 0), vec2(WIDTH, HEIGHT)
+            vec2(0,HEIGHT), vec2(0,45), vec2(WIDTH, 45), vec2(WIDTH, HEIGHT)
         )
     )
 end
@@ -23,10 +23,10 @@ function draw()
     -- Draw the enclosing wall
     stroke(255, 255, 255, 255)
     strokeWidth(5)
-    line(0,0,0,HEIGHT)
-    line(0,0,WIDTH,0)
+    line(0,45,0,HEIGHT)
+    line(0,45,WIDTH,45)
     line(0,HEIGHT,WIDTH,HEIGHT)
-    line(WIDTH,HEIGHT,WIDTH,0)
+    line(WIDTH,HEIGHT,WIDTH,45)
 
     -- Let each object draw it's self
     for i, obj in pairs(objects) do

@@ -46,6 +46,7 @@ function draw()
 end
 
 function touched(touch)
+    if touch.y < 50 then return end
     local touchfound = false
     for i, obj in pairs(objects) do
         if obj:touched(touch) then touchfound = true end

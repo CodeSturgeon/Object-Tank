@@ -1,5 +1,5 @@
 supportedOrientations(LANDSCAPE_ANY)
---displayMode(FULLSCREEN)
+displayMode(FULLSCREEN)
 
 -- Use this function to perform your initial setup
 function setup()

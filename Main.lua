@@ -11,7 +11,12 @@ function setup()
     -- Create a wall around the screen
     table.insert(scenery,
         physics.body(CHAIN, true,
-            vec2(0,HEIGHT), vec2(0,45), vec2(WIDTH, 45), vec2(WIDTH, HEIGHT)
+            vec2(0,HEIGHT),
+            vec2(0,45),
+            vec2(285,45),
+            vec2(285,0),
+            vec2(WIDTH, 0),
+            vec2(WIDTH, HEIGHT)
         )
     )
 end
@@ -24,9 +29,11 @@ function draw()
     stroke(255, 255, 255, 255)
     strokeWidth(5)
     line(0,45,0,HEIGHT)
-    line(0,45,WIDTH,45)
+    line(0,45,285,45)
+    line(285,45, 285, 0)
+    line(285, 0, WIDTH, 0)
     line(0,HEIGHT,WIDTH,HEIGHT)
-    line(WIDTH,HEIGHT,WIDTH,45)
+    line(WIDTH,HEIGHT,WIDTH,0)
 
     -- Let each object draw it's self
     for i, obj in pairs(objects) do
@@ -46,7 +53,7 @@ function draw()
 end
 
 function touched(touch)
-    if touch.y < 50 then return end
+    if touch.y < 50  and touch.x < 290 then return end
     local touchfound = false
     for i, obj in pairs(objects) do
         if obj:touched(touch) then touchfound = true end

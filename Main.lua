@@ -1,5 +1,5 @@
-supportedOrientations(LANDSCAPE_ANY)
 displayMode(FULLSCREEN)
+supportedOrientations(LANDSCAPE_LEFT)
 
 -- Use this function to perform your initial setup
 function setup()
@@ -53,11 +53,16 @@ function draw()
 end
 
 function touched(touch)
+    -- Ignore button touches
     if touch.y < 50  and touch.x < 290 then return end
+
+    -- See if one of the objects was touched
     local touchfound = false
     for i, obj in pairs(objects) do
         if obj:touched(touch) then touchfound = true end
     end
+
+    -- Make a new object if this is a fresh touch
     if touchfound == false and touch.state == BEGAN then
         table.insert(objects,
             classes[math.random(#classes)](

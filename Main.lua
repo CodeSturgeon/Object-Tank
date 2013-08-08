@@ -3,11 +3,11 @@ supportedOrientations(LANDSCAPE_LEFT)
 
 -- Use this function to perform your initial setup
 function setup()
-    objects = {}
+    objects = {} -- Live objects in the tank
     classes = {Star, Tree, Rock, Heart}
     table.insert(objects, Heart())
     --table.insert(objects, classes[math.random(#classes)]())
-    -- Create a wall around the screen
+    -- Create a wall around the screen to make the tank
     border = physics.body(CHAIN, true,
         vec2(0,HEIGHT),
         vec2(0,45),

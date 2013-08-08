@@ -1,24 +1,42 @@
-displayMode(FULLSCREEN)
+--displayMode(FULLSCREEN)
 supportedOrientations(LANDSCAPE_LEFT)
 
 -- Use this function to perform your initial setup
 function setup()
     objects = {}
-    scenery = {}
     classes = {Star, Tree, Rock, Heart}
     table.insert(objects, Heart())
     --table.insert(objects, classes[math.random(#classes)]())
     -- Create a wall around the screen
-    table.insert(scenery,
-        physics.body(CHAIN, true,
-            vec2(0,HEIGHT),
-            vec2(0,45),
-            vec2(285,45),
-            vec2(285,0),
-            vec2(WIDTH, 0),
-            vec2(WIDTH, HEIGHT)
-        )
+    border = physics.body(CHAIN, true,
+        vec2(0,HEIGHT),
+        vec2(0,45),
+        vec2(285,45),
+        vec2(285,0),
+        vec2(WIDTH, 0),
+        vec2(WIDTH, HEIGHT)
     )
+end
+
+-- Trace a body's points
+function traceBody(bod)
+    for i, v in ipairs(bod.points) do
+        if i == 1 then
+            -- First point gets stashed as there is no line to draw
+            sv = v
+        else
+            -- Draw line to the last point
+            line(lv.x, lv.y, v.x, v.y)
+        end
+
+        -- At the end of the run, close the loop
+        if i == #bod.points then
+            line(v.x, v.y, sv.x, sv.y)
+        end
+
+        -- Stash for next loop
+        lv = v
+    end
 end
 
 -- This function gets called once every frame
@@ -28,12 +46,7 @@ function draw()
     -- Draw the enclosing wall
     stroke(255, 255, 255, 255)
     strokeWidth(5)
-    line(0,45,0,HEIGHT)
-    line(0,45,285,45)
-    line(285,45, 285, 0)
-    line(285, 0, WIDTH, 0)
-    line(0,HEIGHT,WIDTH,HEIGHT)
-    line(WIDTH,HEIGHT,WIDTH,0)
+    traceBody(border)
 
     -- Let each object draw it's self
     for i, obj in pairs(objects) do

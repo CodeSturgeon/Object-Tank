@@ -16,7 +16,11 @@ function Thingy:draw()
     translate(self.body.x, self.body.y)
     rotate(self.body.angle)
 
-    if self.destruct then
+    -- If body is out of sight or other wise destroyed
+    if self.body.x > WIDTH or self.body.y > HEIGHT
+        or self.body.x < 0 or self.body.y < 0
+        or self.destruct
+    then
         -- signal mail loop to kill off this object
         self.destroy = true
     else

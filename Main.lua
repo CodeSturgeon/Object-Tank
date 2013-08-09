@@ -1,5 +1,3 @@
---displayMode(FULLSCREEN)
-supportedOrientations(LANDSCAPE_LEFT)
 
 -- Use this function to perform your initial setup
 function setup()
@@ -9,14 +7,31 @@ function setup()
     classes = {Star, Tree, Rock, Heart}
     table.insert(objects, Heart())
     -- Create a wall around the screen to make the tank
-    border = physics.body(CHAIN, true,
-        vec2(0,HEIGHT),
-        vec2(0,45),
-        vec2(285,45),
-        vec2(285,0),
-        vec2(WIDTH, 0),
-        vec2(WIDTH, HEIGHT)
-    )
+end
+
+function makeBorder()
+    local cdm = displayMode()
+    local bargs = {CHAIN, true, vec2(WIDTH,0), vec2(WIDTH, HEIGHT)}
+
+    -- Avoid the flyout button if needed
+    if cdm == FULLSCREEN or cdm == STANDARD then
+        table.insert(bargs, vec2(60, HEIGHT))
+        table.insert(bargs, vec2(60, HEIGHT-60))
+        table.insert(bargs, vec2(0, HEIGHT-60))
+    else
+        table.insert(bargs, vec2(0,HEIGHT))
+    end
+
+    -- Avoid the button bar if need
+    if cdm == FULLSCREEN then
+        table.insert(bargs, vec2(0,45))
+        table.insert(bargs, vec2(285,45))
+        table.insert(bargs, vec2(285,0))
+    else
+        table.insert(bargs, vec2(0,0))
+    end
+
+    return physics.body(unpack(bargs))
 end
 
 -- Trace a body's points
@@ -44,6 +59,15 @@ end
 function draw()
     background(40, 40, 50)
 
+    if dsm ~= displayMode() or lor ~= CurrentOrientation then
+        if border ~= nil then border:destroy() end -- Account for first run nil
+        dsm = displayMode()
+        lor = CurrentOrientation
+        print('New dsm',dsm)
+        --border = physics.body(unpack(BORDERS[dsm + 1]))
+        border = makeBorder()
+    end
+
     -- Draw the enclosing wall
     stroke(255, 255, 255, 255)
     strokeWidth(5)
@@ -67,8 +91,19 @@ function draw()
 end
 
 function touched(touch)
-    -- Ignore button touches
-    if touch.y < 50  and touch.x < 290 then return end
+    -- Ignore flyout touches
+    local cdm = displayMode()
+    if cdm ~= FULLSCREEN_NO_BUTTONS and (touch.x < 60 and touch.y > HEIGHT-60) 
+    then
+        print('nope a')
+        return
+    end
+
+    -- Avoid the button bar if need
+    if cdm == FULLSCREEN and (touch.x < 285 and touch.y < 45) then
+        print('nope b')
+        return
+    end
 
     -- See if one of the objects was touched
     local touchfound = false

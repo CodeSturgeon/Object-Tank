@@ -114,7 +114,7 @@ function touched(touch)
             classes[math.random(#classes)](
                 touch.x,
                 touch.y,
-                math.random(ObjSizeRnd)+ObjSizeRnd
+                math.random(ObjSizeRnd)+ObjSizeMin
             )
         )
     end

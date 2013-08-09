@@ -59,12 +59,11 @@ end
 function draw()
     background(40, 40, 50)
 
+    -- Redraw border if the screen changes
     if dsm ~= displayMode() or lor ~= CurrentOrientation then
         if border ~= nil then border:destroy() end -- Account for first run nil
         dsm = displayMode()
         lor = CurrentOrientation
-        print('New dsm',dsm)
-        --border = physics.body(unpack(BORDERS[dsm + 1]))
         border = makeBorder()
     end
 
@@ -95,13 +94,11 @@ function touched(touch)
     local cdm = displayMode()
     if cdm ~= FULLSCREEN_NO_BUTTONS and (touch.x < 60 and touch.y > HEIGHT-60) 
     then
-        print('nope a')
         return
     end
 
     -- Avoid the button bar if need
     if cdm == FULLSCREEN and (touch.x < 285 and touch.y < 45) then
-        print('nope b')
         return
     end
 

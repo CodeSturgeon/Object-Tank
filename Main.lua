@@ -6,6 +6,13 @@ function setup()
     parameter.action('Fullscreen',
         (function () displayMode(FULLSCREEN_NO_BUTTONS) end)
     )
+    parameter.boolean('OrientationLock', false, (function (value)
+        if value then
+            supportedOrientations(CurrentOrientation)
+        else
+            supportedOrientations(ANY)
+        end
+    end))
     objects = {} -- Live objects in the tank
     classes = {Star, Tree, Rock, Heart}
     table.insert(objects, Heart())

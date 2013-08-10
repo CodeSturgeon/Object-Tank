@@ -3,6 +3,9 @@
 function setup()
     parameter.integer('ObjSizeMin', 10, 50, 20)
     parameter.integer('ObjSizeRnd', 10, 50, 20)
+    parameter.action('Fullscreen',
+        (function () displayMode(FULLSCREEN_NO_BUTTONS) end)
+    )
     objects = {} -- Live objects in the tank
     classes = {Star, Tree, Rock, Heart}
     table.insert(objects, Heart())

@@ -13,6 +13,7 @@ function setup()
             supportedOrientations(ANY)
         end
     end))
+    parameter.boolean('DebugDraw', false)
     objects = {} -- Live objects in the tank
     classes = {Star, Tree, Rock, Heart}
     table.insert(objects, Heart())

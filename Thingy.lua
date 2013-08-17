@@ -25,7 +25,7 @@ function Thingy:draw()
         self.destroy = true
     else
         self:drawMe()
-        --self:debugOverlay()
+        if DebugDraw then self:debugOverlay() end
     end
 
     popMatrix()

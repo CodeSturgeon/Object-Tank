@@ -15,7 +15,7 @@ function setup()
     end))
     parameter.boolean('DebugDraw', false)
     objects = {} -- Live objects in the tank
-    classes = {Star, Tree, Rock, Heart}
+    classes = {Star, Tree, Rock, Heart, Coin, Circle}
     table.insert(objects, Heart())
     -- Create a wall around the screen to make the tank
 end

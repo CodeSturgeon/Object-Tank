@@ -82,6 +82,7 @@ function draw()
     stroke(255, 255, 255, 255)
     strokeWidth(5)
     traceBody(border)
+    line(WIDTH/2, HEIGHT/2, (WIDTH/2)+(Gravity.x*200), (HEIGHT/2)+(Gravity.y*200))
 
     -- Let each object draw it's self
     for i, obj in pairs(objects) do

@@ -1,3 +1,46 @@
+Heart = class(Thingy)
+
+function Heart:init(x, y, size)
+    self.body = physics.body(CIRCLE, size or 30)
+    self.body.restitution = 0.3
+    Thingy.init(self, x, y)
+end
+
+function Heart:drawMe()
+    sprite("Planet Cute:Heart",
+        0,
+        self.body.radius*0.07,
+        self.body.radius*2.2
+    )
+end
+Rock = class(Thingy)
+
+function Rock:init(x, y, size)
+    self.body = physics.body(CIRCLE, size or 30)
+    self.body.restitution = 0.15
+    self.body.density = 2
+    Thingy.init(self, x, y)
+end
+
+function Rock:drawMe()
+    sprite("Planet Cute:Rock", 0, self.body.radius*0.65, self.body.radius*2.3)
+end
+Tree = class(Thingy)
+
+function Tree:init(x, y, size)
+    self.body = physics.body(CIRCLE, size or 30)
+    self.body.restitution = 0.3
+    Thingy.init(self, x, y)
+end
+
+function Tree:drawMe()
+    sprite(
+        "Planet Cute:Tree Short",
+        0,
+        self.body.radius*0.45,
+        self.body.radius*2.5
+    )
+end
 Star = class(Thingy)
 
 function Star:init(x, y, size)

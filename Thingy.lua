@@ -9,13 +9,6 @@ function Thingy:init(x, y)
 end
 
 function Thingy:draw()
-    self:touchforce()
-
-    pushStyle()
-    pushMatrix()
-    translate(self.body.x, self.body.y)
-    rotate(self.body.angle)
-
     -- If body is out of sight or other wise destroyed
     if self.body.x > WIDTH or self.body.y > HEIGHT
         or self.body.x < 0 or self.body.y < 0
@@ -23,11 +16,22 @@ function Thingy:draw()
     then
         -- signal mail loop to kill off this object
         self.destroy = true
-    else
-        self:drawMe()
-        if DebugDraw then self:debugOverlay() end
     end
 
+    -- Apply any current dragging
+    self:touchforce()
+
+    -- Ecapsualte the drawing admin as much as possible
+    pushStyle()
+    pushMatrix()
+    translate(self.body.x, self.body.y)
+    rotate(self.body.angle)
+
+    -- Do actuall drawing
+    self:drawMe()
+    if DebugDraw then self:debugOverlay() end
+
+    -- More ecapsulation
     popMatrix()
     popStyle()
 end

@@ -20,6 +20,7 @@ function setup()
     -- Create a wall around the screen to make the tank
 end
 
+-- Create border object taking screen shape in to account
 function makeBorder()
     local cdm = displayMode()
     local bargs = {CHAIN, true, vec2(WIDTH,0), vec2(WIDTH, HEIGHT)}
@@ -46,6 +47,7 @@ function makeBorder()
 end
 
 -- Trace a body's points
+-- FIXME look at the debug draw version
 function traceBody(bod)
     for i, v in ipairs(bod.points) do
         if i == 1 then
@@ -82,17 +84,21 @@ function draw()
     stroke(255, 255, 255, 255)
     strokeWidth(5)
     traceBody(border)
-    line(WIDTH/2, HEIGHT/2, (WIDTH/2)+(Gravity.x*200), (HEIGHT/2)+(Gravity.y*200))
 
-    -- Let each object draw it's self
+    -- Gravity link
+    line(
+        WIDTH/2,
+        HEIGHT/2,
+        (WIDTH/2)+(Gravity.x*200),
+        (HEIGHT/2)+(Gravity.y*200)
+    )
+
+    -- Let each object draw or destroy it's self
     for i, obj in pairs(objects) do
-        --print(i)
         if obj.destroy then
-            --print "destroy"
             obj.body:destroy()
             objects[i] = nil
         else
-            --print "draw"
             obj:draw()
         end
     end

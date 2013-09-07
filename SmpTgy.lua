@@ -1,3 +1,8 @@
+-- Simple Thingy based objects
+
+--
+-- Heart
+--
 Heart = class(Thingy)
 
 function Heart:init(x, y, size)
@@ -13,6 +18,11 @@ function Heart:drawMe()
         self.body.radius*2.2
     )
 end
+
+
+--
+-- Rock
+--
 Rock = class(Thingy)
 
 function Rock:init(x, y, size)
@@ -25,6 +35,11 @@ end
 function Rock:drawMe()
     sprite("Planet Cute:Rock", 0, self.body.radius*0.65, self.body.radius*2.3)
 end
+
+
+--
+-- Tree
+--
 Tree = class(Thingy)
 
 function Tree:init(x, y, size)
@@ -41,6 +56,11 @@ function Tree:drawMe()
         self.body.radius*2.5
     )
 end
+
+
+-- 
+-- Star
+--
 Star = class(Thingy)
 
 function Star:init(x, y, size)
@@ -59,6 +79,10 @@ function Star:drawMe()
     )
 end
 
+
+--
+-- Coin
+--
 Coin = class(Thingy)
 
 function Coin:init(x, y, size)
@@ -77,6 +101,10 @@ function Coin:drawMe()
     )
 end
 
+
+--
+-- Circle
+--
 Circle = class(Thingy)
 
 function Circle:init(x, y, size)

@@ -1,6 +1,11 @@
-
 -- Use this function to perform your initial setup
 function setup()
+    objects = {} -- Live objects in the tank
+    classes = {Star, Tree, Rock, Heart, Coin, Circle}
+    makeParams()
+end
+
+function makeParams()
     parameter.integer('ObjSizeMin', 10, 50, 20)
     parameter.integer('ObjSizeRnd', 10, 50, 20)
     parameter.action('Fullscreen',
@@ -14,10 +19,6 @@ function setup()
         end
     end))
     parameter.boolean('DebugDraw', false)
-    objects = {} -- Live objects in the tank
-    classes = {Star, Tree, Rock, Heart, Coin, Circle}
-    table.insert(objects, Heart())
-    -- Create a wall around the screen to make the tank
 end
 
 -- Create border object taking screen shape in to account

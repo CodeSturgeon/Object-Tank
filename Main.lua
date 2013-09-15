@@ -6,11 +6,12 @@ function setup()
 end
 
 function makeParams()
-    parameter.integer('ObjSizeMin', 10, 50, 20)
-    parameter.integer('ObjSizeRnd', 10, 50, 20)
+    parameter.clear()
     parameter.action('Fullscreen',
         (function () displayMode(FULLSCREEN_NO_BUTTONS) end)
     )
+    parameter.integer('ObjSizeMin', 10, 50, 20)
+    parameter.integer('ObjSizeRnd', 10, 50, 20)
     parameter.boolean('OrientationLock', false, (function (value)
         if value then
             supportedOrientations(CurrentOrientation)
@@ -19,6 +20,8 @@ function makeParams()
         end
     end))
     parameter.boolean('DebugDraw', false)
+    parameter.number('GravFactor', 0.0, 5.0, 1.0)
+    parameter.boolean('GravArrow', false)
 end
 
 -- Create border object taking screen shape in to account
@@ -86,13 +89,15 @@ function draw()
     strokeWidth(5)
     traceBody(border)
 
-    -- Gravity link
-    line(
-        WIDTH/2,
-        HEIGHT/2,
-        (WIDTH/2)+(Gravity.x*200),
-        (HEIGHT/2)+(Gravity.y*200)
-    )
+    -- Gravity line
+    if GravArrow then
+        line(
+            WIDTH/2,
+            HEIGHT/2,
+            (WIDTH/2)+(Gravity.x*200),
+            (HEIGHT/2)+(Gravity.y*200)
+        )
+    end
 
     -- Let each object draw or destroy it's self
     for i, obj in pairs(objects) do
@@ -104,7 +109,7 @@ function draw()
         end
     end
 
-    physics.gravity(Gravity)
+    physics.gravity(Gravity*GravFactor)
     
 end
 

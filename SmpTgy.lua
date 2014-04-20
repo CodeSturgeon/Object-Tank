@@ -4,8 +4,10 @@
 -- Heart
 --
 Heart = class(Thingy)
+table.insert(thingy_types, Heart)
 
 function Heart:init(x, y, size)
+    self.name = 'Heart'
     self.body = physics.body(CIRCLE, size or 30)
     self.body.restitution = 0.3
     Thingy.init(self, x, y)
@@ -24,8 +26,10 @@ end
 -- Rock
 --
 Rock = class(Thingy)
+table.insert(thingy_types, Rock)
 
 function Rock:init(x, y, size)
+    self.name = 'Rock'
     self.body = physics.body(CIRCLE, size or 30)
     self.body.restitution = 0.15
     self.body.density = 2
@@ -41,8 +45,10 @@ end
 -- Tree
 --
 Tree = class(Thingy)
+table.insert(thingy_types, Tree)
 
 function Tree:init(x, y, size)
+    self.name = 'Tree'
     self.body = physics.body(CIRCLE, size or 30)
     self.body.restitution = 0.3
     Thingy.init(self, x, y)
@@ -62,8 +68,10 @@ end
 -- Star
 --
 Star = class(Thingy)
+table.insert(thingy_types, Star)
 
 function Star:init(x, y, size)
+    self.name = 'Star'
     self.body = physics.body(CIRCLE, size or 30)
     self.body.restitution = 0.8
     self.body.density = 0.5
@@ -84,8 +92,10 @@ end
 -- Coin
 --
 Coin = class(Thingy)
+table.insert(thingy_types, Coin)
 
 function Coin:init(x, y, size)
+    self.name = 'Coin'
     self.body = physics.body(CIRCLE, size or 35)
     self.body.restitution = 0.4
     self.body.density = 1.2
@@ -106,8 +116,10 @@ end
 -- Circle
 --
 Circle = class(Thingy)
+table.insert(thingy_types, Circle)
 
 function Circle:init(x, y, size)
+    self.name = 'Circle'
     self.body = physics.body(CIRCLE, size or 35)
     self.body.restitution = 0.4
     self.body.density = 1.2

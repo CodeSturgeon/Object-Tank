@@ -1,12 +1,18 @@
 -- Use this function to perform your initial setup
+
+thingy_types = {}
 function setup()
+    enabled_thingys = {}
     objects = {} -- Live objects in the tank
-    classes = {Star, Tree, Rock, Heart, Coin, Circle}
     makeParams()
 end
 
 function makeParams()
     parameter.clear()
+    parameter.action('ReTab', (function ()
+        saveProjectTab('Thingy', '-- Thingy tab')
+        saveProjectTab('SmpTgy', '-- SmpTgy')
+    end))
     parameter.action('Fullscreen',
         (function () displayMode(FULLSCREEN_NO_BUTTONS) end)
     )
@@ -22,6 +28,13 @@ function makeParams()
     parameter.boolean('DebugDraw', false)
     parameter.number('GravFactor', 0.0, 5.0, 1.0)
     parameter.boolean('GravArrow', false)
+    for i, v in ipairs(thingy_types) do
+        print(i)
+        print(v.name)
+        --parameter.boolean('enable'+v.name, true, (function (value)
+        --    print(value)
+        --end))
+    end
 end
 
 -- Create border object taking screen shape in to account
@@ -135,7 +148,7 @@ function touched(touch)
     -- Make a new object if this is a fresh touch
     if touchfound == false and touch.state == BEGAN then
         table.insert(objects,
-            classes[math.random(#classes)](
+            thingy_types[math.random(#thingy_types)](
                 touch.x,
                 touch.y,
                 math.random(ObjSizeRnd)+ObjSizeMin

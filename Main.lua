@@ -15,14 +15,15 @@ end
 function makeParams()
     parameter.clear()
     parameter.action('ReTab', (function ()
+        saveProjectTab('World', '-- World tab')
         saveProjectTab('Thingy', '-- Thingy tab')
         saveProjectTab('SmpTgy', '-- SmpTgy')
     end))
+    parameter.integer('ObjSizeMin', 10, 50, 20)
+    parameter.integer('ObjSizeRnd', 10, 50, 20)
     parameter.action('Fullscreen',
         (function () displayMode(FULLSCREEN_NO_BUTTONS) end)
     )
-    parameter.integer('ObjSizeMin', 10, 50, 20)
-    parameter.integer('ObjSizeRnd', 10, 50, 20)
     parameter.boolean('OrientationLock', false, (function (value)
         if value then
             supportedOrientations(CurrentOrientation)
@@ -33,12 +34,16 @@ function makeParams()
     parameter.boolean('DebugDraw', false)
     parameter.number('GravFactor', 0.0, 5.0, 1.0)
     parameter.boolean('GravArrow', false)
+
+    -- Enable individual Thingy types
     for i, v in ipairs(thingy_types) do
-        print(i)
-        print(v.name)
-        --parameter.boolean('enable'+v.name, true, (function (value)
-        --    print(value)
-        --end))
+        enabled_thingys[v.name] = true
+        function classToggle(cls)
+            return function (value)
+                enabled_thingys[cls.name] = value
+            end
+        end
+        parameter.boolean('enable' .. v.name, true, classToggle(v))
     end
 end
 
@@ -105,8 +110,13 @@ function touched(touch)
 
     -- Make a new object if this is a fresh touch
     if touchfound == false and touch.state == BEGAN then
+        local thing_type
+        repeat
+            thing_type = thingy_types[math.random(#thingy_types)]
+        until _G['enable' .. thing_type.name]
+
         table.insert(objects,
-            thingy_types[math.random(#thingy_types)](
+            thing_type(
                 touch.x,
                 touch.y,
                 math.random(ObjSizeRnd)+ObjSizeMin

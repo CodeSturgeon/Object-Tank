@@ -1,10 +1,14 @@
--- Use this function to perform your initial setup
+-- Main.lua
 
 thingy_types = {}
+
 function setup()
     enabled_thingys = {}
     objects = {} -- Live objects in the tank
     makeParams()
+
+    -- Set the display mode as AirCode starts in a strange state
+    displayMode(STANDARD)
 end
 
 

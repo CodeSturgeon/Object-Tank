@@ -112,6 +112,7 @@ function touched(touch)
     if touchfound == false and touch.state == BEGAN then
         local thing_type
         repeat
+            -- FIXME CRASHES WITHOUT any enabled
             thing_type = thingy_types[math.random(#thingy_types)]
         until _G['enable' .. thing_type.name]
 

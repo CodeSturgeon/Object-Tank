@@ -36,11 +36,15 @@ function makeParams()
     parameter.boolean('GravArrow', false)
 
     -- Enable individual Thingy types
+    enabled_thingys = 0
     for i, v in ipairs(thingy_types) do
-        enabled_thingys[v.name] = true
         function classToggle(cls)
             return function (value)
-                enabled_thingys[cls.name] = value
+                if value then
+                    enabled_thingys = enabled_thingys + 1
+                else
+                    enabled_thingys = enabled_thingys - 1
+                end
             end
         end
         parameter.boolean('enable' .. v.name, true, classToggle(v))
@@ -110,6 +114,9 @@ function touched(touch)
 
     -- Make a new object if this is a fresh touch
     if touchfound == false and touch.state == BEGAN then
+        if enabled_thingys == 0 then
+            return
+        end
         local thing_type
         repeat
             -- FIXME CRASHES WITHOUT any enabled

@@ -113,6 +113,30 @@ end
 
 
 --
+-- Planet
+--
+Planet = class(Thingy)
+Planet.name = 'Planet'
+table.insert(thingy_types, Planet)
+
+function Planet:init(x, y, size)
+    self.body = physics.body(CIRCLE, size or 35)
+    self.body.restitution = 0.4
+    self.body.density = 1.2
+    Thingy.init(self, x, y)
+end
+
+function Planet:drawMe()
+    sprite(
+        "SpaceCute:Planet",
+        0,
+        -8,
+        self.body.radius*2
+    )
+end
+
+
+--
 -- Circle
 --
 Circle = class(Thingy)

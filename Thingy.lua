@@ -6,6 +6,7 @@ function Thingy:init(x, y)
     self.body.x = x or WIDTH/2
     self.body.y = y or HEIGHT/2
     self.touchMap = {}
+    self.body.thingy = self
 end
 
 function Thingy:draw()

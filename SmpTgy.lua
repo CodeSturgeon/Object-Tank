@@ -145,17 +145,24 @@ Circle = class(Thingy)
 Circle.name = 'Circle'
 table.insert(thingy_types, Circle)
 
-function Circle:init(x, y, size)
+function Circle:init(x, y, size, static)
     self.body = physics.body(CIRCLE, size or 35)
     self.body.restitution = 0.4
     self.body.density = 1.2
+    if static then
+        self.body.type = STATIC
+    end
     Thingy.init(self, x, y)
 end
 
 function Circle:drawMe()
     stroke(190, 101, 101, 255)
     strokeWidth(2)
-    fill(31, 6, 235, 255)
+    if self.body.type == STATIC then
+        fill(10, 10, 10, 10)
+    else
+        fill(31, 6, 235, 255)
+    end
     ellipse(0, 0, self.body.radius * 2)
 end
 
@@ -175,12 +182,11 @@ function Square:init(x, y, size)
     )
     self.body.restitution = 0.4
     self.body.density = 1.2
+    --self.body.type = STATIC
     self.size = size*2
     Thingy.init(self, x, y)
 end
 
 function Square:drawMe()
     sprite("Platformer Art:Block Special Brick", 0, 0, self.size, self.size)
-    --strokeWidth(2)m
-    --traceBody(self.body)
 end

@@ -1,5 +1,7 @@
 -- Simple Thingy based objects
 
+thingy_types = {}
+
 --
 -- Heart
 --

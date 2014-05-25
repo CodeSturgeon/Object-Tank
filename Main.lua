@@ -1,7 +1,5 @@
 -- Main.lua
 
-thingy_types = {}
-
 function setup()
     enabled_thingys = {}
     objects = {} -- Live objects in the tank
